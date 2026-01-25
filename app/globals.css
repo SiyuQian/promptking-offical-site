@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #0f172a;
+  --color-blue: #3b82f6;
+  --color-blue-light: #60a5fa;
+  
+  --font-display: var(--font-playfair), serif;
+  --font-sans: var(--font-dm-sans), sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-navy;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.7s ease-out forwards;
+}
+
+.fade-in {
+  animation: fade-in 0.7s ease-out forwards;
+}
+
+.slide-in-from-bottom-4 {
+  animation: slide-in-from-bottom 0.7s ease-out forwards;
+}
