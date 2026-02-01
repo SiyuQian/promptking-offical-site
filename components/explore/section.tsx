@@ -1,14 +1,30 @@
 import Link from 'next/link'
-import { ExplorePromptGroup } from './types'
-import { ExploreCard } from './card'
+import { ExploreApiResponse, ExplorePromptGroup } from './types'
+import { ExploreCard } from './card';
 
-interface ExploreSectionProps {
-  items: ExplorePromptGroup[]
+export async function fetchExploreData(): Promise<ExploreApiResponse | undefined> {
+  try {
+    const res = await fetch(`${process.env.API_URL}?limit=500&include_counts=true&group_by_name=true`, {
+      cache: 'force-cache',
+      next: { revalidate: 3600 }, // Revalidate every hour
+    })
+
+    if (!res.ok) {
+      console.warn(`API returned ${res.status}, using fallback data`);
+    }
+
+    return res.json()
+  } catch (error) {
+    console.warn('Failed to fetch explore data, using fallback:', error)
+  }
 }
 
-export function ExploreSection({ items }: ExploreSectionProps) {
+export async function ExploreSection() {
+  const response = await fetchExploreData()
+  const items = response?.data
+
   // Take top 12 items by stars
-  const topItems = items.slice(0, 12)
+  const topItems = items?.slice(0, 12)
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -32,7 +48,7 @@ export function ExploreSection({ items }: ExploreSectionProps) {
 
         {/* Cards Grid */}
         <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 mb-12">
-          {topItems.map((item) => (
+          {topItems?.map((item) => (
             <ExploreCard key={item.id} item={item} />
           ))}
         </div>
