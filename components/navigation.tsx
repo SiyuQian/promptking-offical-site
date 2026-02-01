@@ -49,8 +49,14 @@ export default function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop CTA */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
+            <Link
+              href="/explore"
+              className="px-4 py-2 text-navy font-medium hover:text-blue-600 transition-colors duration-200"
+            >
+              Explore
+            </Link>
             <a
               href={APP_URL}
               className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md"
@@ -92,7 +98,14 @@ export default function Navigation() {
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-gray-100 mt-2 pt-4">
+          <div className="md:hidden pb-4 border-t border-gray-100 mt-2 pt-4 space-y-2">
+            <Link
+              href="/explore"
+              className="block w-full px-4 py-3 text-navy font-medium text-center hover:bg-gray-50 rounded-lg transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Explore
+            </Link>
             <a
               href={APP_URL}
               className="block w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-medium text-center hover:bg-blue-700 transition-colors"
